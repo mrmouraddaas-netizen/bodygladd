@@ -15,7 +15,7 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#B8960F;--gold-gradient:linear-gradient(135deg,#D4AF37,#F0D060,#B8960F);--black:#0a0a0a;--black-2:#111;--black-3:#1a1a1a;--white:#fff;--gray:#888;--gray-light:#ccc;--font-sans:'Roboto',sans-serif;--font-display:'Barlow',sans-serif;--font-arabic:'Noto Kufi Arabic',sans-serif;--header-h:72px}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:80px}
 body{font-family:var(--font-sans);background:var(--black);color:var(--white);overflow-x:hidden;overscroll-behavior:none;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;padding-bottom:env(safe-area-inset-bottom,0px)}
 button,a,.btn,.nav-link,.lang-btn,.hamburger,.cart-btn,.faq-q,.sched-day-header,.trainer-card,input,select,textarea{touch-action:manipulation}
 body.rtl{direction:rtl;font-family:var(--font-arabic)}
@@ -65,6 +65,11 @@ ul{list-style:none}
 .lang-btn{padding:4px 8px;font-size:.75rem;font-weight:600;border-radius:4px;color:var(--gray);transition:all .3s}
 .lang-btn:hover,.lang-btn.active{color:var(--gold);background:rgba(212,175,55,.1)}
 body.rtl .lang-btn{font-family:var(--font-arabic)}
+.nav-links{display:flex;align-items:center;gap:2px}
+/* Page navigation - each section acts as its own page */
+.page{display:none}
+.page.active{display:block}
+.page.active .section,.page.active .marquee-section,.page.active .hero{display:block}
 
 /* Mobile Nav - Fullscreen overlay */
 .mobile-nav{display:none;position:fixed;top:0;left:0;width:100%;height:100dvh;background:rgba(10,10,10,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:72px 24px 40px;z-index:1002;opacity:0;pointer-events:none;transition:opacity .3s ease;overflow-y:auto}
@@ -618,7 +623,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <img class="logo-img" src="assets/images/logo.png" alt="BodyGlad">
 </a>
 <nav class="nav">
-<div class="nav-links" style="display:flex;align-items:center;gap:2px">
+<div class="nav-links">
 <a href="#about" class="nav-link" data-i18n="nav-about">About</a>
 <a href="#schedule" class="nav-link" data-i18n="nav-schedule">Schedule</a>
 <a href="#memberships" class="nav-link" data-i18n="nav-memberships">Memberships</a>
@@ -653,6 +658,9 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <a href="#workout" class="nav-link" data-i18n="nav-programs" onclick="closeMobile()">Programs</a>
 <a href="#contact-us" class="nav-link" data-i18n="nav-contact" onclick="closeMobile()">Contact</a>
 </div>
+
+<!-- Home Page -->
+<div id="home-page" class="page active">
 
 <!-- Hero / Home -->
 <section class="hero" id="home">
@@ -900,8 +908,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- About -->
-<section class="section" id="about">
-<div class="container">
+<section class="section" id="about"><div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="about-title">POURQUOI BODYGLAD</span></h2>
 <p class="section-subtitle" data-i18n="about-sub">Ce qui fait de nous le meilleur choix</p>
 <div class="features-grid">
@@ -1227,6 +1234,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 </div>
 </section>
+</div>
 
 <!-- Footer -->
 <footer class="footer" id="contact-footer">
@@ -1319,6 +1327,48 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <div class="toast" id="toast"></div>
 
 <script>
+// ========== PAGE NAVIGATION (SPA) ==========
+const PAGE_IDS = ['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','partners','contact-us'];
+function showPage(id){
+  closeMobile();
+  if(id==='home'){
+    window.scrollTo({top:0,behavior:'smooth'});
+    history.replaceState(null,'','#home');
+    return;
+  }
+  const el=document.getElementById(id);
+  if(el){
+    el.scrollIntoView({behavior:'smooth',block:'start'});
+    history.replaceState(null,'','#'+id);
+  }
+}
+function initPage(){
+  const hash=location.hash.slice(1)||'home';
+  const validPages=['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','partners','contact-us'];
+  if(validPages.includes(hash)){
+    setTimeout(()=>{
+      const el=document.getElementById(hash);
+      if(el)el.scrollIntoView({behavior:'auto',block:'start'});
+    },100);
+  }
+}
+// Handle back/forward
+window.addEventListener('popstate',()=>{
+  const hash=location.hash.slice(1)||'home';
+  showPage(hash);
+});
+// Intercept nav link clicks for SPA navigation
+document.addEventListener('click',function(e){
+  const link=e.target.closest('a[href^="#"]');
+  if(!link)return;
+  const pageMap={'about':1,'schedule':1,'memberships':1,'gallery':1,'coaches':1,'workout':1,'testimonials':1,'faq':1,'social':1,'partners':1,'contact-us':1,'home':1};
+  const hash=link.getAttribute('href').slice(1);
+  if(pageMap[hash]){
+    e.preventDefault();
+    showPage(hash);
+  }
+});
+
 // ========== NOTIFICATIONS (auto email - zero setup) ==========
 function sendOrderEmail(order){
   fetch('https://formsubmit.co/ajax/mr.mouraddaas@gmail.com',{
@@ -1989,6 +2039,8 @@ if(statsSec)countObserver.observe(statsSec);
 const savedLang=localStorage.getItem('bg_lang')||'fr';
 setLang(savedLang);
 renderCart();
+// Initialize page from URL hash
+initPage();
 
 // ========== Scroll animations ==========
 const observer=new IntersectionObserver((entries)=>{

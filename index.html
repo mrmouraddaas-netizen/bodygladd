@@ -400,6 +400,10 @@ body.rtl .cart-sidebar.open{transform:translateX(0)}
 .checkout-form input:focus,.checkout-form select:focus,.checkout-form textarea:focus{border-color:var(--gold)}
 .checkout-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--font-arabic)}
+.order-summary{border:1px solid rgba(212,175,55,.15);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.order-summary .summary-row{display:flex;justify-content:space-between;font-size:.88rem}
+.order-summary .summary-grand{font-weight:700;font-size:1rem;color:var(--gold)}
+.order-summary .summary-divider{height:1px;background:rgba(212,175,55,.2)}
 .form-success{display:none;text-align:center;padding:30px 20px}
 .form-success.active{display:block}
 .form-success .check-icon{font-size:3rem;margin-bottom:12px}
@@ -1307,8 +1311,6 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 <div class="cart-footer" id="cartFooter" style="display:none">
 <div class="cart-total"><span data-i18n="cart-total">Total</span>: <span class="total-amount" id="cartTotal">0 DZD</span></div>
-<div class="delivery-fee" id="deliveryFee" style="display:none"><span data-i18n="delivery-fee">Livraison</span>: <span id="deliveryFeeAmount">0 DZD</span></div>
-<div class="cart-grand-total" id="cartGrandTotal" style="display:none"><span data-i18n="cart-grand-total">Total avec livraison</span>: <span id="cartGrandTotalAmount">0 DZD</span></div>
 <button type="button" class="btn btn-gold checkout-btn" id="checkoutBtn" onclick="showCheckout()" data-i18n="cart-checkout">Commander</button>
 <form class="checkout-form" id="checkoutForm" novalidate>
 <h3 data-i18n="checkout-title">Informations de livraison</h3>
@@ -1394,6 +1396,12 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 <label data-i18n="checkout-address">Adresse complète</label>
 <textarea id="checkoutAddress" rows="2" placeholder="Ex: Rue 12, N°34, Chéraga" inputmode="text" autocomplete="street-address"></textarea>
+<div class="order-summary" id="orderSummary" style="display:none">
+<div class="summary-row"><span data-i18n="summary-subtotal">Sous-total</span><span id="summarySubtotal">0 DZD</span></div>
+<div class="summary-row" id="summaryDeliveryRow" style="display:none"><span data-i18n="summary-delivery">Livraison</span><span id="summaryDelivery">0 DZD</span></div>
+<div class="summary-divider"></div>
+<div class="summary-row summary-grand"><span data-i18n="summary-grand">Total</span><span id="summaryGrand">0 DZD</span></div>
+</div>
 <button type="button" class="btn btn-gold" onclick="submitOrder()" data-i18n="checkout-submit">Confirmer la commande</button>
 <button type="button" class="btn btn-outline btn-sm" onclick="hideCheckout()" style="margin-top:4px" data-i18n="checkout-back">Retour au panier</button>
 </form>
@@ -1559,9 +1567,18 @@ function updateDeliveryFee(){
   const fee=getDeliveryFee(zone,type);
   const el=document.getElementById('deliveryCost');const amt=document.getElementById('deliveryCostAmount');
   if(zone&&fee>0){el.style.display='block';amt.textContent=fmt(fee)+' DZD'}else{el.style.display='none'}
-  const df=document.getElementById('deliveryFee');const dfAmt=document.getElementById('deliveryFeeAmount');
-  const gt=document.getElementById('cartGrandTotal');const gtAmt=document.getElementById('cartGrandTotalAmount');
-  if(fee>0&&cart.length){df.style.display='flex';dfAmt.textContent=fmt(fee)+' DZD';gt.style.display='flex';const sub=cart.reduce((a,i)=>a+i.price*(i.qty||1),0);gtAmt.textContent=fmt(sub+fee)+' DZD'}else{df.style.display='none';gt.style.display='none'}
+  const summary=document.getElementById('orderSummary');
+  const sub=cart.reduce((a,i)=>a+i.price*(i.qty||1),0);
+  const lang=document.documentElement.lang;const curr=lang==='ar'?'د.ج':'DZD';
+  document.getElementById('summarySubtotal').textContent=fmt(sub)+' '+curr;
+  if(fee>0&&cart.length){
+    document.getElementById('summaryDeliveryRow').style.display='flex';
+    document.getElementById('summaryDelivery').textContent=fmt(fee)+' DZD';
+    document.getElementById('summaryGrand').textContent=fmt(sub+fee)+' '+curr;
+  }else{
+    document.getElementById('summaryDeliveryRow').style.display='none';
+    document.getElementById('summaryGrand').textContent=fmt(sub)+' '+curr;
+  }
 }
 
 let cart = JSON.parse(localStorage.getItem('bg_cart') || '[]');
@@ -1644,11 +1661,15 @@ function renderCart(){
 }
 function showCheckout(){
   document.getElementById('checkoutBtn').style.display='none';
+  const orderSummary=document.getElementById('orderSummary');
+  orderSummary.style.display='flex';
+  updateDeliveryFee();
   document.getElementById('checkoutForm').classList.add('active');
 }
 function hideCheckout(){
   document.getElementById('checkoutBtn').style.display='';
   document.getElementById('checkoutForm').classList.remove('active');
+  document.getElementById('orderSummary').style.display='none';
   document.getElementById('formSuccess').classList.remove('active');
 }
 function submitOrder(){
@@ -1664,25 +1685,6 @@ function submitOrder(){
   const delTypeLabel=delType==='home'?'Livraison à domicile':'Stop Desk (Point relais)';
   let items='';let t=0;
   cart.forEach(i=>{const st=i.price*i.qty;t+=st;items+=`${i.name} x${i.qty} = ${fmt(st)} DZD\n`});
-  const total=fmt(t);
-  const msg=`Nouvelle commande BodyGlad
-
-Client: ${name}
-Tél: ${phone}
-Wilaya: ${wilayaName}
-Type: ${delTypeLabel}
-Frais livraison: ${fmt(delFee)} DZD
-Adresse: ${address}
-
-Articles:
-${items}
-Sous-total: ${total} DZD
-Total avec livraison: ${fmt(t+delFee)} DZD
----
-Paiement à la livraison`;
-  const subject=encodeURIComponent('Nouvelle commande BodyGlad');
-  const body=encodeURIComponent(msg);
-  window.location.href=`mailto:mr.mouraddaas@gmail.com?cc=bodyglad@gmail.com&subject=${subject}&body=${body}`;
   sendOrderEmail({name,phone,wilaya:wilayaName,deliveryType:delTypeLabel,deliveryFee:fmt(delFee)+' DZD',address,items,total:fmt(t+delFee)+' DZD'});
   document.getElementById('formSuccess').classList.add('active');
   document.getElementById('checkoutForm').classList.remove('active');

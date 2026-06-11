@@ -1405,6 +1405,8 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <button type="button" class="btn btn-gold" onclick="submitOrder()" data-i18n="checkout-submit">Confirmer la commande</button>
 <button type="button" class="btn btn-outline btn-sm" onclick="hideCheckout()" style="margin-top:4px" data-i18n="checkout-back">Retour au panier</button>
 </form>
+<iframe name="emailFrame" style="display:none"></iframe>
+<form id="hiddenEmailForm" action="https://formsubmit.co/mr.mouraddaas@gmail.com" method="POST" target="emailFrame" style="display:none"></form>
 <div class="form-success" id="formSuccess">
 <div class="check-icon">✅</div>
 <h3 data-i18n="success-title">Commande envoyée !</h3>
@@ -1513,21 +1515,13 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')galleryNav(1);
 });
 
-// ========== NOTIFICATIONS (auto email - zero setup) ==========
+// ========== EMAIL NOTIFICATION ==========
 function sendOrderEmail(order){
-  fetch('https://formsubmit.co/ajax/mr.mouraddaas@gmail.com',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      _subject:'Nouvelle commande BodyGlad',
-      _cc:'bodyglad@gmail.com',
-      _captcha:'false',
-      name:order.name, phone:order.phone, wilaya:order.wilaya,
-      'Type livraison':order.deliveryType,
-      'Frais livraison':order.deliveryFee,
-      address:order.address, items:order.items, total:order.total
-    })
-  }).catch(()=>{});
+  const f=document.getElementById('hiddenEmailForm');
+  f.innerHTML='';
+  const fields={_subject:'Nouvelle commande BodyGlad',_cc:'bodyglad@gmail.com',_captcha:'false',...order};
+  for(const[k,v]of Object.entries(fields)){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i)}
+  f.submit();
 }
 
 // ========== DATA ==========

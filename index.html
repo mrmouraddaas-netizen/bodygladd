@@ -306,6 +306,20 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .wo-tip{background:linear-gradient(135deg,rgba(212,175,55,.08),transparent 80%);padding:14px 18px;border-radius:12px;margin-bottom:24px;font-size:.85rem;color:var(--gray-light);border-left:3px solid var(--gold);display:flex;align-items:flex-start;gap:12px}
 .wo-tip .tip-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px}
 .wo-tip strong{color:var(--gold)}
+
+/* Shop */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.product-card{position:relative;border-radius:14px;overflow:hidden;transition:transform .3s,box-shadow .3s;border:1px solid var(--border);cursor:default}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.4)}
+.product-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--black-3)}
+.product-info{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.product-info .p-name{font-size:.85rem;font-weight:700;line-height:1.3}
+.product-info .p-price{font-size:1rem;font-weight:800;color:var(--gold)}
+.product-info .p-add{width:100%;margin-top:4px;padding:8px;border-radius:8px;background:var(--gold-gradient);border:none;color:var(--black);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:opacity .2s;font-family:inherit}
+.product-info .p-add:hover{opacity:.85}
+@media(max-width:600px){.products-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:360px){.products-grid{grid-template-columns:1fr}}
+
 @media(max-width:900px){
   .wo-form-row{flex-wrap:wrap}
   .wo-field{flex:1 1 calc(50% - 5px);min-width:0}
@@ -624,6 +638,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <a href="#about" class="nav-link" data-i18n="nav-about">About</a>
 <a href="#schedule" class="nav-link" data-i18n="nav-schedule">Schedule</a>
 <a href="#memberships" class="nav-link" data-i18n="nav-memberships">Memberships</a>
+<a href="#shop" class="nav-link" data-i18n="nav-shop">Shop</a>
 <a href="#gallery" class="nav-link" data-i18n="nav-gallery">Gallery</a>
 <a href="#coaches" class="nav-link" data-i18n="nav-coaches">Coaches</a>
 <a href="#contact-us" class="nav-link" data-i18n="nav-contact">Contact</a>
@@ -650,6 +665,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <a href="#about" class="nav-link" data-i18n="nav-about" onclick="closeMobile()">About</a>
 <a href="#schedule" class="nav-link" data-i18n="nav-schedule" onclick="closeMobile()">Schedule</a>
 <a href="#memberships" class="nav-link" data-i18n="nav-memberships" onclick="closeMobile()">Memberships</a>
+<a href="#shop" class="nav-link" data-i18n="nav-shop" onclick="closeMobile()">Shop</a>
 <a href="#gallery" class="nav-link" data-i18n="nav-gallery" onclick="closeMobile()">Gallery</a>
 <a href="#coaches" class="nav-link" data-i18n="nav-coaches" onclick="closeMobile()">Coaches</a>
 <a href="#workout" class="nav-link" data-i18n="nav-programs" onclick="closeMobile()">Programs</a>
@@ -984,6 +1000,28 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 </section>
 
+<!-- Shop -->
+<section class="section" id="shop">
+<div class="container">
+<h2 class="section-title"><span class="gradient-text" data-i18n="products-title">BODYGLAD SHOP</span></h2>
+<p class="section-subtitle" data-i18n="products-sub">Premium gear for your journey</p>
+<div class="products-grid">
+<div class="product-card"><img src="assets/images/products/100-whey-concentrate.jpg" alt="100% Whey Concentrate" loading="lazy"><div class="product-info"><div class="p-name">100% Whey Concentrate</div><div class="p-price">6,700 DA</div><button class="p-add" onclick="addToCart(1)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/isowhey-black.jpg" alt="ISOWHEY BLACK" loading="lazy"><div class="product-info"><div class="p-name">ISOWHEY BLACK</div><div class="p-price">7,400 DA</div><button class="p-add" onclick="addToCart(2)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/creatine-creapure.jpg" alt="Creatine Creapure" loading="lazy"><div class="product-info"><div class="p-name">Creatine Creapure</div><div class="p-price">4,700 DA</div><button class="p-add" onclick="addToCart(3)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/creatine-monohydrate.jpg" alt="CREATINE MONOHYDRATE" loading="lazy"><div class="product-info"><div class="p-name">CREATINE MONOHYDRATE</div><div class="p-price">3,500 DA</div><button class="p-add" onclick="addToCart(4)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/crea-caps.jpg" alt="CREA CAPS" loading="lazy"><div class="product-info"><div class="p-name">CREA CAPS</div><div class="p-price">5,400 DA</div><button class="p-add" onclick="addToCart(5)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/carborn.jpg" alt="CARBORN" loading="lazy"><div class="product-info"><div class="p-name">CARBORN</div><div class="p-price">3,900 DA</div><button class="p-add" onclick="addToCart(6)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/arginine.jpg" alt="ARGININE" loading="lazy"><div class="product-info"><div class="p-name">ARGININE</div><div class="p-price">3,500 DA</div><button class="p-add" onclick="addToCart(7)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/glutamine.jpg" alt="100% GLUTAMINE" loading="lazy"><div class="product-info"><div class="p-name">100% GLUTAMINE</div><div class="p-price">3,700 DA</div><button class="p-add" onclick="addToCart(8)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/citrulline-malate.jpg" alt="CITRULLINE MALATE" loading="lazy"><div class="product-info"><div class="p-name">CITRULLINE MALATE</div><div class="p-price">3,900 DA</div><button class="p-add" onclick="addToCart(9)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/acetyl-l-carnitine.jpg" alt="ACETYL-L-CARNITINE" loading="lazy"><div class="product-info"><div class="p-name">ACETYL-L-CARNITINE</div><div class="p-price">2,900 DA</div><button class="p-add" onclick="addToCart(10)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/mct-oil-c8.jpg" alt="MCT OIL C8" loading="lazy"><div class="product-info"><div class="p-name">MCT OIL C8</div><div class="p-price">5,400 DA</div><button class="p-add" onclick="addToCart(11)" data-i18n="prod-add">Add to Cart</button></div></div>
+<div class="product-card"><img src="assets/images/products/shaker-reborn.jpg" alt="SHAKER REBORN INOX" loading="lazy"><div class="product-info"><div class="p-name">SHAKER REBORN INOX</div><div class="p-price">2,200 DA</div><button class="p-add" onclick="addToCart(12)" data-i18n="prod-add">Add to Cart</button></div></div>
+</div>
+</div>
+</section>
+
 <!-- Gallery -->
 <section class="section" id="gallery">
 <div class="container">
@@ -1201,6 +1239,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <div id="schedule-page" class="page"></div>
 <div id="about-page" class="page"></div>
 <div id="memberships-page" class="page"></div>
+<div id="shop-page" class="page"></div>
 <div id="gallery-page" class="page"></div>
 <div id="coaches-page" class="page"></div>
 <div id="workout-page" class="page"></div>
@@ -1222,6 +1261,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <a href="#about" data-i18n="nav-about">About</a>
 <a href="#schedule" data-i18n="nav-schedule">Schedule</a>
 <a href="#memberships" data-i18n="nav-memberships">Memberships</a>
+<a href="#shop" data-i18n="nav-shop">Shop</a>
 <a href="#gallery" data-i18n="nav-gallery">Gallery</a>
 <a href="#coaches" data-i18n="nav-coaches">Coaches</a>
 <a href="#workout" data-i18n="nav-programs">Programs</a>
@@ -1302,6 +1342,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <button class="fab-btn" onclick="showPage('schedule')" data-i18n="fab-schedule">Schedule</button>
 <button class="fab-btn" onclick="showPage('about')" data-i18n="fab-about">About</button>
 <button class="fab-btn" onclick="showPage('memberships')" data-i18n="fab-memberships">Memberships</button>
+<button class="fab-btn" onclick="showPage('shop')" data-i18n="nav-shop">Shop</button>
 <button class="fab-btn" onclick="showPage('gallery')" data-i18n="fab-gallery">Gallery</button>
 <button class="fab-btn" onclick="showPage('coaches')" data-i18n="fab-coaches">Coaches</button>
 <button class="fab-btn" onclick="showPage('contact-us')" data-i18n="fab-contact">Contact</button>
@@ -1311,7 +1352,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 
 <script>
 // ========== PAGE NAVIGATION (SPA) ==========
-const PAGE_IDS = ['schedule','memberships','gallery','coaches','workout','about','testimonials','faq','social','contact-us'];
+const PAGE_IDS = ['schedule','memberships','shop','gallery','coaches','workout','about','testimonials','faq','social','contact-us'];
 function showPage(id){
   closeMobile();closeFab();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1349,7 +1390,7 @@ function handleHashNav(){
 document.addEventListener('click',function(e){
   const link=e.target.closest('a[href^="#"]');
   if(!link)return;
-  const pageMap={'about':1,'schedule':1,'memberships':1,'gallery':1,'coaches':1,'workout':1,'testimonials':1,'faq':1,'social':1,'contact-us':1,'home':1};
+  const pageMap={'about':1,'schedule':1,'memberships':1,'shop':1,'gallery':1,'coaches':1,'workout':1,'testimonials':1,'faq':1,'social':1,'contact-us':1,'home':1};
   const hash=link.getAttribute('href').slice(1);
   if(pageMap[hash]){
     e.preventDefault();
@@ -1853,7 +1894,8 @@ function printWorkout(){
 const i18n={
   en:{
     promo:'📍 Cheraga, near GARDEN CITY | 📞 0554 67 22 22 | 🕐 6AM-12AM · 7/7',
-    'nav-programs':'Programs','nav-memberships':'Memberships','nav-coaches':'Coaches','nav-about':'About','nav-schedule':'Schedule','nav-gallery':'Gallery','nav-contact':'Contact',
+    'nav-programs':'Programs','nav-memberships':'Memberships','nav-shop':'Shop','nav-coaches':'Coaches','nav-about':'About','nav-schedule':'Schedule','nav-gallery':'Gallery','nav-contact':'Contact',
+    'products-title':'BODYGLAD SHOP','products-sub':'Premium gear for your journey','prod-add':'Add to Cart',
     'fab-schedule':'Schedule','fab-about':'About','fab-memberships':'Memberships','fab-gallery':'Gallery','fab-coaches':'Coaches','fab-contact':'Contact',
     'hero-badge':'#1 Gym in Algiers','hero-title':'PUSH BEYOND<br><span class="gold-text">YOUR LIMITS</span>',
     'hero-sub':'N°1 Fitness in Algiers — Premium Equipment, Elite Coaches, Electric Atmosphere. Join the elite.',
@@ -1895,7 +1937,8 @@ const i18n={
   },
   fr:{
     promo:'📍 Chéraga, vers GARDEN CITY | 📞 0554 67 22 22 | 🕐 6h-00h · 7j/7',
-    'nav-programs':'Programmes','nav-memberships':'Abonnements','nav-coaches':'Coachs','nav-about':'À propos','nav-schedule':'Horaires','nav-gallery':'Galerie','nav-contact':'Contact',
+    'nav-programs':'Programmes','nav-memberships':'Abonnements','nav-shop':'Boutique','nav-coaches':'Coachs','nav-about':'À propos','nav-schedule':'Horaires','nav-gallery':'Galerie','nav-contact':'Contact',
+    'products-title':'BOUTIQUE BODYGLAD','products-sub':'Équipement premium pour votre parcours','prod-add':'Ajouter au panier',
     'fab-schedule':'Horaires','fab-about':'À propos','fab-memberships':'Abonnements','fab-gallery':'Galerie','fab-coaches':'Coachs','fab-contact':'Contact',
     'hero-badge':'N°1 Gym à Alger','hero-title':'REPOUSSEZ<br><span class="gold-text">VOS LIMITES</span>',
     'hero-sub':'N°1 Fitness à Alger — Équipements Premium, Coachs d\'Élite, Ambiance Électrique. Rejoignez l\'élite.',
@@ -1937,7 +1980,8 @@ const i18n={
   },
   ar:{
     promo:'📍 الشراقة، باتجاه جاردن سيتي | 📞 0554 67 22 22 | 🕐 6:00-00:00 · 7/7',
-    'nav-programs':'البرامج','nav-memberships':'العضويات','nav-coaches':'المدربون','nav-about':'من نحن','nav-schedule':'المواعيد','nav-gallery':'المعرض','nav-contact':'اتصل بنا',
+    'nav-programs':'البرامج','nav-memberships':'العضويات','nav-shop':'المتجر','nav-coaches':'المدربون','nav-about':'من نحن','nav-schedule':'المواعيد','nav-gallery':'المعرض','nav-contact':'اتصل بنا',
+    'products-title':'متجر BODYGLAD','products-sub':'معدات ممتازة لرحلتك','prod-add':'أضف إلى السلة',
     'fab-schedule':'المواعيد','fab-about':'من نحن','fab-memberships':'العضويات','fab-gallery':'المعرض','fab-coaches':'المدربون','fab-contact':'اتصل بنا',
     'hero-badge':'رقم 1 في الجزائر العاصمة','hero-title':'تجاوز<br><span class="gold-text">حدودك</span>',
     'hero-sub':'رقم 1 في اللياقة بالجزائر العاصمة — معدات فاخرة، مدربون نخبة، أجواء كهربائية. انضم إلى النخبة.',
@@ -2059,7 +2103,7 @@ const observer=new IntersectionObserver((entries)=>{
     if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)'}
   });
 },{threshold:.1});
-document.querySelectorAll('.info-card,.membership-card,.trainer-card,.testimonial-card,.faq-item,.instagram-card,.feature-card,.contact-card,.gallery-item,.schedule-card,.workout-builder').forEach(el=>{
+document.querySelectorAll('.info-card,.membership-card,.trainer-card,.testimonial-card,.faq-item,.instagram-card,.feature-card,.contact-card,.gallery-item,.schedule-card,.workout-builder,.product-card').forEach(el=>{
   el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity .6s ease,transform .6s ease';
   observer.observe(el);
 });

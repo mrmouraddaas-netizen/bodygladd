@@ -70,6 +70,12 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .page{display:none}
 .page.active{display:block}
 .page.active .section,.page.active .marquee-section,.page.active .hero{display:block}
+/* Page mode - standalone section view */
+body.page-mode #home-page .section,
+body.page-mode #home-page .hero,
+body.page-mode #home-page .marquee-section{display:none}
+body.page-mode #home-page .section.current-page,
+body.page-mode #home-page .hero.current-page{display:block}
 /* Floating quick-nav */
 .fab{position:fixed;bottom:24px;right:24px;z-index:998;width:56px;height:56px;border-radius:50%;background:var(--gold-gradient);color:var(--black);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(212,175,55,.4);cursor:pointer;transition:all .3s;border:none}
 .fab:active{transform:scale(.92)}
@@ -1280,25 +1286,29 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 const PAGE_IDS = ['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','contact-us'];
 function showPage(id){
   closeMobile();closeFab();
+  const homePage=document.getElementById('home-page');
+  // Clear current-page from all sections
+  document.querySelectorAll('#home-page .current-page').forEach(el=>el.classList.remove('current-page'));
   if(id==='home'){
+    document.body.classList.remove('page-mode');
+    homePage.style.display='';
     window.scrollTo({top:0,behavior:'smooth'});
     history.replaceState(null,'','#home');
     return;
   }
   const el=document.getElementById(id);
-  if(el){
-    el.scrollIntoView({behavior:'smooth',block:'start'});
-    history.replaceState(null,'','#'+id);
-  }
+  if(!el)return;
+  el.classList.add('current-page');
+  document.body.classList.add('page-mode');
+  homePage.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  history.replaceState(null,'','#'+id);
 }
 function initPage(){
   const hash=location.hash.slice(1)||'home';
   const validPages=['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','contact-us'];
   if(validPages.includes(hash)){
-    setTimeout(()=>{
-      const el=document.getElementById(hash);
-      if(el)el.scrollIntoView({behavior:'auto',block:'start'});
-    },100);
+    setTimeout(()=>showPage(hash),100);
   }
 }
 // Handle back/forward

@@ -1517,9 +1517,12 @@ document.addEventListener('keydown',e=>{
 // ========== EMAIL NOTIFICATION ==========
 (function(){try{emailjs.init('YOtIHgkiHPtXK2ekc')}catch(_){}})();
 function sendOrderEmail(order){
-  try{
-    emailjs.send('service_2l31imd','template_pz3xlrf',order)
-  }catch(_){}
+  emailjs.send('service_2l31imd','template_pz3xlrf',order).then(()=>{
+    console.log('Email sent successfully');
+  }).catch(e=>{
+    console.error('EmailJS error:',e);
+    showToast('Erreur envoi email: '+e.text);
+  });
 }
 
 // ========== DATA ==========

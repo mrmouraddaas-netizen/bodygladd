@@ -1405,12 +1405,10 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <button type="button" class="btn btn-gold" onclick="submitOrder()" data-i18n="checkout-submit">Confirmer la commande</button>
 <button type="button" class="btn btn-outline btn-sm" onclick="hideCheckout()" style="margin-top:4px" data-i18n="checkout-back">Retour au panier</button>
 </form>
-<iframe name="emailFrame" style="display:none"></iframe>
-<form id="hiddenEmailForm" action="https://formsubmit.co/mr.mouraddaas@gmail.com" method="POST" target="emailFrame" style="display:none"></form>
 <div class="form-success" id="formSuccess">
 <div class="check-icon">✅</div>
 <h3 data-i18n="success-title">Commande envoyée !</h3>
-<p data-i18n="success-text">Merci ! Votre commande a été envoyée. Nous vous contacterons dans les plus brefs délais.</p>
+<p data-i18n="success-text">Commande reçue ! Un email s'est ouvert, cliquez sur Envoyer pour nous notifier.</p>
 <button type="button" class="btn btn-gold" onclick="closeCartAndReset()" style="margin-top:16px" data-i18n="success-close">Fermer</button>
 </div>
 </div>
@@ -1517,11 +1515,16 @@ document.addEventListener('keydown',e=>{
 
 // ========== EMAIL NOTIFICATION ==========
 function sendOrderEmail(order){
-  const f=document.getElementById('hiddenEmailForm');
-  f.innerHTML='';
-  const fields={_subject:'Nouvelle commande BodyGlad',_cc:'bodyglad@gmail.com',_captcha:'false',...order};
-  for(const[k,v]of Object.entries(fields)){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i)}
-  f.submit();
+  try{
+    const p=new URLSearchParams({_subject:'Nouvelle commande BodyGlad',_cc:'bodyglad@gmail.com',name:order.name,phone:order.phone,wilaya:order.wilaya,delivery:order.deliveryType,frais:order.deliveryFee,address:order.address,items:order.items,total:order.total});
+    navigator.sendBeacon('https://formsubmit.co/mr.mouraddaas@gmail.com',p);
+  }catch(_){}
+  const subj=encodeURIComponent('Nouvelle commande BodyGlad');
+  let b='';
+  b+=`Client: ${order.name}\nTél: ${order.phone}\nWilaya: ${order.wilaya}\n`;
+  b+=`Type: ${order.deliveryType}\nFrais: ${order.deliveryFee}\nAdresse: ${order.address}\n\n`;
+  b+=`Articles:\n${order.items}\nTotal: ${order.total}\n--\nPaiement à la livraison`;
+  window.open(`mailto:mr.mouraddaas@gmail.com?cc=bodyglad@gmail.com&subject=${subj}&body=${encodeURIComponent(b)}`,'_blank');
 }
 
 // ========== DATA ==========

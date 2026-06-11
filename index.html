@@ -1295,12 +1295,12 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <!-- Toast -->
 <div class="fab" id="fab" onclick="toggleFab()" aria-label="Quick nav">+</div>
 <div class="fab-menu" id="fabMenu">
-<button class="fab-btn" onclick="showPage('schedule')">Schedule</button>
-<button class="fab-btn" onclick="showPage('about')">About</button>
-<button class="fab-btn" onclick="showPage('memberships')">Memberships</button>
-<button class="fab-btn" onclick="showPage('gallery')">Gallery</button>
-<button class="fab-btn" onclick="showPage('coaches')">Coaches</button>
-<button class="fab-btn" onclick="showPage('contact-us')">Contact</button>
+<button class="fab-btn" onclick="showPage('schedule')" data-i18n="fab-schedule">Schedule</button>
+<button class="fab-btn" onclick="showPage('about')" data-i18n="fab-about">About</button>
+<button class="fab-btn" onclick="showPage('memberships')" data-i18n="fab-memberships">Memberships</button>
+<button class="fab-btn" onclick="showPage('gallery')" data-i18n="fab-gallery">Gallery</button>
+<button class="fab-btn" onclick="showPage('coaches')" data-i18n="fab-coaches">Coaches</button>
+<button class="fab-btn" onclick="showPage('contact-us')" data-i18n="fab-contact">Contact</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1807,6 +1807,7 @@ const i18n={
   en:{
     promo:'📍 Cheraga, near GARDEN CITY | 📞 0554 67 22 22 | 🕐 6AM-12AM · 7/7',
     'nav-programs':'Programs','nav-memberships':'Memberships','nav-coaches':'Coaches','nav-about':'About','nav-schedule':'Schedule','nav-gallery':'Gallery','nav-contact':'Contact',
+    'fab-schedule':'Schedule','fab-about':'About','fab-memberships':'Memberships','fab-gallery':'Gallery','fab-coaches':'Coaches','fab-contact':'Contact',
     'hero-badge':'#1 Gym in Algiers','hero-title':'PUSH BEYOND<br><span class="gold-text">YOUR LIMITS</span>',
     'hero-sub':'N°1 Fitness in Algiers — Premium Equipment, Elite Coaches, Electric Atmosphere. Join the elite.',
     'hero-cta1':'Get Started','hero-cta2':'Contact Us',
@@ -1850,6 +1851,7 @@ const i18n={
   fr:{
     promo:'📍 Chéraga, vers GARDEN CITY | 📞 0554 67 22 22 | 🕐 6h-00h · 7j/7',
     'nav-programs':'Programmes','nav-memberships':'Abonnements','nav-coaches':'Coachs','nav-about':'À propos','nav-schedule':'Horaires','nav-gallery':'Galerie','nav-contact':'Contact',
+    'fab-schedule':'Horaires','fab-about':'À propos','fab-memberships':'Abonnements','fab-gallery':'Galerie','fab-coaches':'Coachs','fab-contact':'Contact',
     'hero-badge':'N°1 Gym à Alger','hero-title':'REPOUSSEZ<br><span class="gold-text">VOS LIMITES</span>',
     'hero-sub':'N°1 Fitness à Alger — Équipements Premium, Coachs d\'Élite, Ambiance Électrique. Rejoignez l\'élite.',
     'hero-cta1':'Commencer','hero-cta2':'Nous Contacter',
@@ -1893,6 +1895,7 @@ const i18n={
   ar:{
     promo:'📍 الشراقة، باتجاه جاردن سيتي | 📞 0554 67 22 22 | 🕐 6:00-00:00 · 7/7',
     'nav-programs':'البرامج','nav-memberships':'العضويات','nav-coaches':'المدربون','nav-about':'من نحن','nav-schedule':'المواعيد','nav-gallery':'المعرض','nav-contact':'اتصل بنا',
+    'fab-schedule':'المواعيد','fab-about':'من نحن','fab-memberships':'العضويات','fab-gallery':'المعرض','fab-coaches':'المدربون','fab-contact':'اتصل بنا',
     'hero-badge':'رقم 1 في الجزائر العاصمة','hero-title':'تجاوز<br><span class="gold-text">حدودك</span>',
     'hero-sub':'رقم 1 في اللياقة بالجزائر العاصمة — معدات فاخرة، مدربون نخبة، أجواء كهربائية. انضم إلى النخبة.',
     'hero-cta1':'ابدأ الآن','hero-cta2':'اتصل بنا',

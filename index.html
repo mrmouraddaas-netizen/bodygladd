@@ -127,14 +127,7 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .info-card h3{font-family:var(--font-display);font-size:.85rem;font-weight:700;margin-bottom:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .info-card p{font-size:.82rem;color:var(--gray);line-height:1.7}
 .info-card p span{display:block}
-/* Stats Counters */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto}
-.stat-card{padding:24px 16px;text-align:center;transition:all .3s}
-.stat-card:hover{transform:translateY(-6px)}
-.stat-card .stat-num{font-family:var(--font-display);font-size:2.4rem;font-weight:900;background:var(--gold-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
-.stat-card .stat-label{font-size:.78rem;color:var(--gray);margin-top:4px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
-@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:360px){.stat-card .stat-num{font-size:1.8rem}}
+
 
 /* Schedule Tabs */
 .sched-tabs{display:flex;justify-content:center;gap:0;margin-bottom:32px;background:var(--black-3);border-radius:12px;padding:4px;max-width:340px;margin-left:auto;margin-right:auto}
@@ -440,10 +433,6 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
   .hero-actions .btn{font-size:1rem;padding:16px 24px;width:100%;justify-content:center}
   .hero-badge{font-size:.85rem;letter-spacing:2px;padding:6px 16px}
   .hero-sub{font-size:1rem;margin-bottom:28px;max-width:100%}
-  .stats-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .stat-card{padding:16px 12px}
-  .stat-card .stat-num{font-size:2rem}
-  .stat-card .stat-label{font-size:.82rem}
   .features-grid{grid-template-columns:1fr;gap:12px}
   .feature-card{padding:20px 16px}
   .feature-card .fi{font-size:2rem}
@@ -572,7 +561,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 }
 /* Touch device hover reset - prevents stuck hover states */
 @media (hover: none) {
-  .info-card:hover,.stat-card:hover,.feature-card:hover,.testimonial-card:hover,
+  .info-card:hover,.feature-card:hover,.testimonial-card:hover,
   .instagram-card:hover,.contact-card:hover{transform:translateY(-2px)}
   .trainer-card:hover{transform:none;box-shadow:none}
   .trainer-card:hover .trainer-overlay,.trainer-card:focus .trainer-overlay{transform:translateY(0);opacity:1}
@@ -592,7 +581,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 /* Focus-visible for keyboard navigation */
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 /* Specific property transitions for perf */
-.info-card,.stat-card,.feature-card,.testimonial-card,.instagram-card,
+.info-card,.feature-card,.testimonial-card,.instagram-card,
 .contact-card,.membership-card,.gallery-item{transition:transform .3s ease}
 .btn,.btn-nav,.sched-tab,.cart-btn,.lang-btn{transition:color .3s,background .3s,border .3s,transform .3s}
 @media(prefers-reduced-motion:reduce){
@@ -701,20 +690,6 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </ul>
 </div>
 </article>
-</section>
-
-<!-- Stats Counters -->
-<section class="section" id="stats">
-<div class="container">
-<h2 class="section-title"><span class="gradient-text" data-i18n="stats-title">ABONNEMENT</span></h2>
-<p class="section-subtitle" data-i18n="stats-sub">Choisissez votre formule</p>
-<div class="stats-grid">
-<div class="card-wrap"><div class="stat-card card-inner"><div class="stat-num" data-count="5000">0</div><div class="stat-label" data-i18n="stats-members">Membres Actifs</div></div></div>
-<div class="card-wrap"><div class="stat-card card-inner"><div class="stat-num" data-count="12">0</div><div class="stat-label" data-i18n="stats-coaches">Coachs Pro</div></div></div>
-<div class="card-wrap"><div class="stat-card card-inner"><div class="stat-num" data-count="7" data-suffix="j/7">0</div><div class="stat-label" data-i18n="stats-days">Ouvert</div></div></div>
-<div class="card-wrap"><div class="stat-card card-inner"><div class="stat-num" data-count="40">0</div><div class="stat-label" data-i18n="stats-classes">Cours / Semaine</div></div></div>
-</div>
-</div>
 </section>
 
 <!-- Schedule -->
@@ -1815,7 +1790,6 @@ const i18n={
     'm-signup':'Subscribe',
     'workout-title':'WORKOUT PROGRAMS','workout-sub':'Generate your personalized training program',
     'w-level':'Level','w-goal':'Goal','w-days':'Days / Week','w-weeks':'Duration','w-generate':'Generate my program',
-    'stats-title':'ABONNEMENT','stats-sub':'Choose your plan','stats-members':'Active Members','stats-coaches':'Pro Coaches','stats-days':'Open','stats-classes':'Classes / Week',
     'schedule-title':'SCHEDULE','schedule-sub':'Check our schedule','schedule-men':'Men','schedule-women':'Women',
     'gallery-title':'GALLERY','gallery-sub':'Discover our space',
     'about-title':'WHY BODYGLAD','about-sub':'What makes us the best choice',
@@ -1858,7 +1832,6 @@ const i18n={
     'm-signup':'S\'abonner',
     'workout-title':'PROGRAMMES','workout-sub':'Générez votre programme d\'entraînement personnalisé',
     'w-level':'Niveau','w-goal':'Objectif','w-days':'Jours / Semaine','w-weeks':'Durée','w-generate':'Générer mon programme',
-    'stats-title':'ABONNEMENT','stats-sub':'Choisissez votre formule','stats-members':'Membres Actifs','stats-coaches':'Coachs Pro','stats-days':'Ouvert','stats-classes':'Cours / Semaine',
     'schedule-title':'HORAIRES','schedule-sub':'Consultez nos horaires','schedule-men':'Hommes','schedule-women':'Femmes',
     'gallery-title':'GALERIE','gallery-sub':'Découvrez notre espace',
     'about-title':'POURQUOI BODYGLAD','about-sub':'Ce qui fait de nous le meilleur choix',
@@ -1901,7 +1874,6 @@ const i18n={
     'm-signup':'اشترك الآن',
     'workout-title':'برامج التمرين','workout-sub':'قم بإنشاء برنامج تدريب مخصص لك',
     'w-level':'المستوى','w-goal':'الهدف','w-days':'أيام / أسبوع','w-weeks':'المدة','w-generate':'إنشاء برنامجي',
-    'stats-title':'اشتراك','stats-sub':'اختر باقتك','stats-members':'عضو نشط','stats-coaches':'مدرب محترف','stats-days':'مفتوح','stats-classes':'درس / أسبوع',
     'schedule-title':'المواعيد','schedule-sub':'اطلع على مواعيدنا','schedule-men':'رجال','schedule-women':'نساء',
     'gallery-title':'المعرض','gallery-sub':'اكتشف مساحتنا',
     'about-title':'لماذا BodyGlad','about-sub':'ما يجعلنا الخيار الأفضل',
@@ -1997,31 +1969,6 @@ function switchSchedTab(tab,btn){
   document.getElementById('sched-'+tab).classList.add('active');
 }
 
-// ========== Counter Animation ==========
-function animateCounters(){
-  document.querySelectorAll('.stat-num[data-count]').forEach(el=>{
-    const target=parseInt(el.dataset.count);
-    if(!target||el.dataset.animated)return;
-    el.dataset.animated='1';
-    const suffix=el.dataset.suffix||'';
-    const dur=1500;const step=Math.max(1,Math.floor(target/60));
-    let cur=0;
-    const t=setInterval(()=>{
-      cur+=step;if(cur>=target){cur=target;clearInterval(t)}
-      el.textContent=suffix?target+suffix:cur.toLocaleString();
-    },dur/60);
-  });
-}
-
-// ========== Counter Observer ==========
-const countObserver=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){countObserver.disconnect();animateCounters()}
-  });
-},{threshold:.3});
-const statsSec=document.getElementById('stats');
-if(statsSec)countObserver.observe(statsSec);
-
 // ========== INIT ==========
 const savedLang=localStorage.getItem('bg_lang')||'fr';
 setLang(savedLang);
@@ -2035,7 +1982,7 @@ const observer=new IntersectionObserver((entries)=>{
     if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)'}
   });
 },{threshold:.1});
-document.querySelectorAll('.info-card,.membership-card,.trainer-card,.testimonial-card,.faq-item,.instagram-card,.feature-card,.contact-card,.stat-card,.gallery-item,.schedule-card,.workout-builder').forEach(el=>{
+document.querySelectorAll('.info-card,.membership-card,.trainer-card,.testimonial-card,.faq-item,.instagram-card,.feature-card,.contact-card,.gallery-item,.schedule-card,.workout-builder').forEach(el=>{
   el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity .6s ease,transform .6s ease';
   observer.observe(el);
 });

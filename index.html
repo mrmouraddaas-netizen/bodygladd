@@ -65,6 +65,11 @@ ul{list-style:none}
 .lang-btn{padding:4px 8px;font-size:.75rem;font-weight:600;border-radius:4px;color:var(--gray);transition:all .3s}
 .lang-btn:hover,.lang-btn.active{color:var(--gold);background:rgba(212,175,55,.1)}
 body.rtl .lang-btn{font-family:var(--font-arabic)}
+.nav-links{display:flex;align-items:center;gap:2px}
+/* Page navigation - each section acts as its own page */
+.page{display:none}
+.page.active{display:block}
+.page.active .section,.page.active .marquee-section,.page.active .hero{display:block}
 
 /* Mobile Nav - Fullscreen overlay */
 .mobile-nav{display:none;position:fixed;top:0;left:0;width:100%;height:100dvh;background:rgba(10,10,10,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:72px 24px 40px;z-index:1002;opacity:0;pointer-events:none;transition:opacity .3s ease;overflow-y:auto}
@@ -618,7 +623,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <img class="logo-img" src="assets/images/logo.png" alt="BodyGlad">
 </a>
 <nav class="nav">
-<div class="nav-links" style="display:flex;align-items:center;gap:2px">
+<div class="nav-links">
 <a href="#about" class="nav-link" data-i18n="nav-about">About</a>
 <a href="#schedule" class="nav-link" data-i18n="nav-schedule">Schedule</a>
 <a href="#memberships" class="nav-link" data-i18n="nav-memberships">Memberships</a>
@@ -653,6 +658,9 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <a href="#workout" class="nav-link" data-i18n="nav-programs" onclick="closeMobile()">Programs</a>
 <a href="#contact-us" class="nav-link" data-i18n="nav-contact" onclick="closeMobile()">Contact</a>
 </div>
+
+<!-- Home Page -->
+<div id="home-page" class="page active">
 
 <!-- Hero / Home -->
 <section class="hero" id="home">
@@ -712,9 +720,10 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 </div>
 </section>
+</div>
 
 <!-- Schedule -->
-<section class="section" id="schedule">
+<section class="section page" id="schedule">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="schedule-title">HORAIRES</span></h2>
 <p class="section-subtitle" data-i18n="schedule-sub">Consultez nos horaires par section</p>
@@ -900,8 +909,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- About -->
-<section class="section" id="about">
-<div class="container">
+<section class="section page" id="about"><div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="about-title">POURQUOI BODYGLAD</span></h2>
 <p class="section-subtitle" data-i18n="about-sub">Ce qui fait de nous le meilleur choix</p>
 <div class="features-grid">
@@ -935,7 +943,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Memberships -->
-<section class="section" id="memberships">
+<section class="section page" id="memberships">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="memberships-title">ABONNEMENTS</span></h2>
 <p class="section-subtitle" data-i18n="memberships-sub">Choisissez la formule qui vous correspond</p>
@@ -995,7 +1003,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Gallery -->
-<section class="section" id="gallery">
+<section class="section page" id="gallery">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="gallery-title">GALERIE</span></h2>
 <p class="section-subtitle" data-i18n="gallery-sub">Découvrez notre espace</p>
@@ -1011,7 +1019,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Coaches - FC Style -->
-<section class="section" id="coaches">
+<section class="section page" id="coaches">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="coaches-title">Nos Coachs</span></h2>
 <p class="section-subtitle" data-i18n="coaches-sub">Des professionnels à votre écoute</p>
@@ -1051,7 +1059,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 
 <!-- Workout Programs -->
-<section class="section" id="workout">
+<section class="section page" id="workout">
 <div class="container">
 <div class="wo-wrap">
 <div class="wo-head">
@@ -1088,7 +1096,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Testimonials -->
-<section class="section" id="testimonials">
+<section class="section page" id="testimonials">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="testimonials-title">Témoignages</span></h2>
 <p class="section-subtitle" data-i18n="testimonials-sub">Ce que nos membres disent de nous</p>
@@ -1122,7 +1130,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- FAQs -->
-<section class="section" id="faq">
+<section class="section page" id="faq">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="faq-title">FAQs</span></h2>
 <p class="section-subtitle" data-i18n="faq-sub">Questions fréquemment posées</p>
@@ -1148,7 +1156,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Instagram -->
-<section class="section instagram-section" id="social">
+<section class="section page instagram-section" id="social">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text">@body_glad</span></h2>
 <p class="section-subtitle" data-i18n="insta-sub">Suivez-nous sur Instagram pour du contenu exclusif</p>
@@ -1174,7 +1182,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Partners -->
-<section class="section" id="partners">
+<section class="section page" id="partners">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="partners-title">NOS PARTENAIRES</span></h2>
 <p class="section-subtitle" data-i18n="partners-sub">Les marques qui nous font confiance</p>
@@ -1199,7 +1207,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 
 <!-- Contact Section -->
-<section class="section" id="contact-us">
+<section class="section page" id="contact-us">
 <div class="container">
 <h2 class="section-title"><span class="gradient-text" data-i18n="contact-title">CONTACT</span></h2>
 <p class="section-subtitle" data-i18n="contact-sub">Prenez contact avec nous</p>
@@ -1319,6 +1327,57 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <div class="toast" id="toast"></div>
 
 <script>
+// ========== PAGE NAVIGATION (SPA) ==========
+const PAGE_IDS = ['home-page','schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','partners','contact-us'];
+function showPage(id){
+  let target=id;
+  // Map short IDs to full page ID
+  if(id==='home')target='home-page';
+  // Hide all pages
+  PAGE_IDS.forEach(pid=>{
+    const el=document.getElementById(pid);
+    if(el)el.classList.remove('active');
+  });
+  // Show target
+  const page=document.getElementById(target);
+  if(page){
+    page.classList.add('active');
+    history.replaceState(null,'','#'+id);
+  }
+  closeMobile();
+  window.scrollTo(0,0);
+  // Re-trigger animations for the new active page
+  setTimeout(()=>{
+    const ap=document.querySelector('.page.active');
+    if(!ap)return;
+    ap.querySelectorAll('.info-card,.membership-card,.trainer-card,.testimonial-card,.faq-item,.instagram-card,.feature-card,.contact-card,.stat-card,.gallery-item,.partner-card,.schedule-card,.workout-builder').forEach(el=>{
+      el.style.opacity='1';el.style.transform='translateY(0)';
+    });
+  },100);
+}
+function initPage(){
+  const hash=location.hash.slice(1)||'home';
+  // If hash corresponds to a known page, show it; otherwise show home
+  const validPages=['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','partners','contact-us'];
+  showPage(validPages.includes(hash)?hash:'home');
+}
+// Handle back/forward
+window.addEventListener('popstate',()=>{
+  const hash=location.hash.slice(1)||'home';
+  showPage(hash);
+});
+// Intercept nav link clicks for SPA navigation
+document.addEventListener('click',function(e){
+  const link=e.target.closest('a[href^="#"]');
+  if(!link)return;
+  const pageMap={'about':1,'schedule':1,'memberships':1,'gallery':1,'coaches':1,'workout':1,'testimonials':1,'faq':1,'social':1,'partners':1,'contact-us':1,'home':1};
+  const hash=link.getAttribute('href').slice(1);
+  if(pageMap[hash]){
+    e.preventDefault();
+    showPage(hash);
+  }
+});
+
 // ========== NOTIFICATIONS (auto email - zero setup) ==========
 function sendOrderEmail(order){
   fetch('https://formsubmit.co/ajax/mr.mouraddaas@gmail.com',{
@@ -1989,6 +2048,8 @@ if(statsSec)countObserver.observe(statsSec);
 const savedLang=localStorage.getItem('bg_lang')||'fr';
 setLang(savedLang);
 renderCart();
+// Initialize page from URL hash
+initPage();
 
 // ========== Scroll animations ==========
 const observer=new IntersectionObserver((entries)=>{

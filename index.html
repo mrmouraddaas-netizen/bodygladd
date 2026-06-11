@@ -70,12 +70,6 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .page{display:none}
 .page.active{display:block}
 .page.active .section,.page.active .marquee-section,.page.active .hero{display:block}
-/* Page mode - standalone section view */
-body.page-mode #home-page .section,
-body.page-mode #home-page .hero,
-body.page-mode #home-page .marquee-section{display:none}
-body.page-mode #home-page .section.current-page,
-body.page-mode #home-page .hero.current-page{display:block}
 /* Floating quick-nav */
 .fab{position:fixed;bottom:24px;right:24px;z-index:998;width:56px;height:56px;border-radius:50%;background:var(--gold-gradient);color:var(--black);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(212,175,55,.4);cursor:pointer;transition:all .3s;border:none}
 .fab:active{transform:scale(.92)}
@@ -698,6 +692,8 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </article>
 </section>
 
+<div id="sections-anchor"></div>
+
 <!-- Schedule -->
 <section class="section" id="schedule">
 <div class="container">
@@ -1181,6 +1177,17 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </section>
 </div>
 
+<div id="schedule-page" class="page"></div>
+<div id="about-page" class="page"></div>
+<div id="memberships-page" class="page"></div>
+<div id="gallery-page" class="page"></div>
+<div id="coaches-page" class="page"></div>
+<div id="workout-page" class="page"></div>
+<div id="testimonials-page" class="page"></div>
+<div id="faq-page" class="page"></div>
+<div id="social-page" class="page"></div>
+<div id="contact-us-page" class="page"></div>
+
 <!-- Footer -->
 <footer class="footer" id="contact-footer">
 <div class="container">
@@ -1286,30 +1293,29 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 const PAGE_IDS = ['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','contact-us'];
 function showPage(id){
   closeMobile();closeFab();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const homePage=document.getElementById('home-page');
-  // Clear current-page from all sections
-  document.querySelectorAll('#home-page .current-page').forEach(el=>el.classList.remove('current-page'));
   if(id==='home'){
-    document.body.classList.remove('page-mode');
-    homePage.style.display='';
+    PAGE_IDS.forEach(pid=>{
+      const s=document.getElementById(pid);
+      if(s&&s.parentNode!==homePage)homePage.insertBefore(s,document.getElementById('sections-anchor'));
+    });
+    homePage.classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
     history.replaceState(null,'','#home');
     return;
   }
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.classList.add('current-page');
-  document.body.classList.add('page-mode');
-  homePage.style.display='block';
+  const sec=document.getElementById(id);
+  if(!sec)return;
+  const pageEl=document.getElementById(id+'-page');
+  pageEl.appendChild(sec);
+  pageEl.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   history.replaceState(null,'','#'+id);
 }
 function initPage(){
   const hash=location.hash.slice(1)||'home';
-  const validPages=['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','contact-us'];
-  if(validPages.includes(hash)){
-    setTimeout(()=>showPage(hash),100);
-  }
+  showPage(hash);
 }
 // Handle back/forward
 window.addEventListener('popstate',()=>{

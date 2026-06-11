@@ -403,6 +403,15 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 .form-success{display:none;text-align:center;padding:30px 20px}
 .form-success.active{display:block}
 .form-success .check-icon{font-size:3rem;margin-bottom:12px}
+.delivery-fee{display:flex;justify-content:space-between;font-size:.9rem;color:var(--gray);margin-bottom:4px}
+.delivery-fee span{color:var(--gray-light)}
+.cart-grand-total{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:700;margin-bottom:12px}
+.cart-grand-total span{color:var(--gold)}
+.delivery-type-group{display:flex;flex-direction:column;gap:6px;padding:8px 0}
+.delivery-type-option{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--gray-light);cursor:pointer;padding:6px 0}
+.delivery-type-option input[type="radio"]{accent-color:var(--gold);width:16px;height:16px;cursor:pointer;flex-shrink:0;margin:0}
+.delivery-cost{font-size:.9rem;color:var(--gold);font-weight:600;margin-bottom:4px;text-align:right}
+.delivery-cost strong{font-size:1rem}
 .form-success h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:8px}
 .form-success p{color:var(--gray);font-size:.9rem}
 
@@ -1298,6 +1307,8 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 </div>
 <div class="cart-footer" id="cartFooter" style="display:none">
 <div class="cart-total"><span data-i18n="cart-total">Total</span>: <span class="total-amount" id="cartTotal">0 DZD</span></div>
+<div class="delivery-fee" id="deliveryFee" style="display:none"><span data-i18n="delivery-fee">Livraison</span>: <span id="deliveryFeeAmount">0 DZD</span></div>
+<div class="cart-grand-total" id="cartGrandTotal" style="display:none"><span data-i18n="cart-grand-total">Total avec livraison</span>: <span id="cartGrandTotalAmount">0 DZD</span></div>
 <button type="button" class="btn btn-gold checkout-btn" id="checkoutBtn" onclick="showCheckout()" data-i18n="cart-checkout">Commander</button>
 <form class="checkout-form" id="checkoutForm" novalidate>
 <h3 data-i18n="checkout-title">Informations de livraison</h3>
@@ -1308,19 +1319,78 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <div class="form-row">
 <div>
 <label data-i18n="checkout-wilaya">Wilaya</label>
-<select id="checkoutWilaya">
-<option value="Alger">Alger</option>
-<option value="Blida">Blida</option>
-<option value="Boumerdes">Boumerdes</option>
-<option value="Tipaza">Tipaza</option>
-<option value="Tizi Ouzou">Tizi Ouzou</option>
-<option value="Autre">Autre</option>
+<select id="checkoutWilaya" onchange="updateDeliveryFee()">
+<option value="">Sélectionnez votre wilaya</option>
+<option value="1">01 - Adrar</option>
+<option value="2">02 - Chlef</option>
+<option value="3">03 - Laghouat</option>
+<option value="4">04 - Oum El Bouaghi</option>
+<option value="5">05 - Batna</option>
+<option value="6">06 - Béjaïa</option>
+<option value="7">07 - Biskra</option>
+<option value="8">08 - Béchar</option>
+<option value="9">09 - Blida</option>
+<option value="10">10 - Bouira</option>
+<option value="11">11 - Tamanrasset</option>
+<option value="12">12 - Tébessa</option>
+<option value="13">13 - Tlemcen</option>
+<option value="14">14 - Tiaret</option>
+<option value="15">15 - Tizi Ouzou</option>
+<option value="16">16 - Alger</option>
+<option value="17">17 - Djelfa</option>
+<option value="18">18 - Jijel</option>
+<option value="19">19 - Sétif</option>
+<option value="20">20 - Saïda</option>
+<option value="21">21 - Skikda</option>
+<option value="22">22 - Sidi Bel Abbès</option>
+<option value="23">23 - Annaba</option>
+<option value="24">24 - Guelma</option>
+<option value="25">25 - Constantine</option>
+<option value="26">26 - Médéa</option>
+<option value="27">27 - Mostaganem</option>
+<option value="28">28 - M'Sila</option>
+<option value="29">29 - Mascara</option>
+<option value="30">30 - Ouargla</option>
+<option value="31">31 - Oran</option>
+<option value="32">32 - El Bayadh</option>
+<option value="33">33 - Illizi</option>
+<option value="34">34 - Bordj Bou Arreridj</option>
+<option value="35">35 - Boumerdès</option>
+<option value="36">36 - El Tarf</option>
+<option value="37">37 - Tindouf</option>
+<option value="38">38 - Tissemsilt</option>
+<option value="39">39 - El Oued</option>
+<option value="40">40 - Khenchela</option>
+<option value="41">41 - Souk Ahras</option>
+<option value="42">42 - Tipaza</option>
+<option value="43">43 - Mila</option>
+<option value="44">44 - Aïn Defla</option>
+<option value="45">45 - Naâma</option>
+<option value="46">46 - Aïn Témouchent</option>
+<option value="47">47 - Ghardaïa</option>
+<option value="48">48 - Relizane</option>
+<option value="49">49 - Timimoun</option>
+<option value="50">50 - Bordj Badji Mokhtar</option>
+<option value="51">51 - Ouled Djellal</option>
+<option value="52">52 - Béni Abbès</option>
+<option value="53">53 - In Salah</option>
+<option value="54">54 - In Guezzam</option>
+<option value="55">55 - Touggourt</option>
+<option value="56">56 - Djanet</option>
+<option value="57">57 - El M'Ghair</option>
+<option value="58">58 - El Meniaa</option>
 </select>
 </div>
 <div>
-<label data-i18n="checkout-qty">Quantité</label>
-<select id="checkoutQty"></select>
+<label data-i18n="checkout-delivery-type">Type de livraison</label>
+<div class="delivery-type-group">
+<label class="delivery-type-option"><input type="radio" name="deliveryType" value="stopDesk" checked onchange="updateDeliveryFee()"> <span data-i18n="delivery-stop-desk">Stop Desk (Point relais)</span></label>
+<label class="delivery-type-option"><input type="radio" name="deliveryType" value="home" onchange="updateDeliveryFee()"> <span data-i18n="delivery-home">Livraison à domicile</span></label>
 </div>
+</div>
+</div>
+<div class="delivery-cost" id="deliveryCost" style="display:none">
+<span data-i18n="delivery-cost-label">Frais de livraison</span>: <strong id="deliveryCostAmount">0 DZD</strong>
 </div>
 <label data-i18n="checkout-address">Adresse complète</label>
 <textarea id="checkoutAddress" rows="2" placeholder="Ex: Rue 12, N°34, Chéraga" inputmode="text" autocomplete="street-address"></textarea>
@@ -1446,7 +1516,9 @@ function sendOrderEmail(order){
       _cc:'bodyglad@gmail.com',
       _captcha:'false',
       name:order.name, phone:order.phone, wilaya:order.wilaya,
-      address:order.address, items:order.items, total:order.total + ' DZD'
+      'Type livraison':order.deliveryType,
+      'Frais livraison':order.deliveryFee,
+      address:order.address, items:order.items, total:order.total
     })
   }).catch(()=>{});
 }
@@ -1466,6 +1538,32 @@ const products = {
   11:{name:'MCT OIL C8',price:5400,img:'assets/images/products/mct-oil-c8.jpg'},
   12:{name:'SHAKER REBORN INOX',price:2200,img:'assets/images/products/shaker-reborn.jpg'}
 };
+
+// ========== YALIDINE DELIVERY ==========
+const yalidineZones = {
+  1:[16],2:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48],3:[49,50,51,52,53,54,55,56,57,58]
+};
+const yalidinePricing = {1:{stopDesk:350,home:450},2:{stopDesk:500,home:700},3:{stopDesk:600,home:900}};
+const wilayaNames={1:'Adrar',2:'Chlef',3:'Laghouat',4:"Oum El Bouaghi",5:'Batna',6:'Béjaïa',7:'Biskra',8:'Béchar',9:'Blida',10:'Bouira',11:'Tamanrasset',12:'Tébessa',13:'Tlemcen',14:'Tiaret',15:'Tizi Ouzou',16:'Alger',17:'Djelfa',18:'Jijel',19:'Sétif',20:'Saïda',21:'Skikda',22:'Sidi Bel Abbès',23:'Annaba',24:'Guelma',25:'Constantine',26:'Médéa',27:'Mostaganem',28:"M'Sila",29:'Mascara',30:'Ouargla',31:'Oran',32:'El Bayadh',33:'Illizi',34:'Bordj Bou Arreridj',35:'Boumerdès',36:'El Tarf',37:'Tindouf',38:'Tissemsilt',39:'El Oued',40:'Khenchela',41:'Souk Ahras',42:'Tipaza',43:'Mila',44:"Aïn Defla",45:'Naâma',46:"Aïn Témouchent",47:'Ghardaïa',48:'Relizane',49:'Timimoun',50:'Bordj Badji Mokhtar',51:'Ouled Djellal',52:'Béni Abbès',53:'In Salah',54:'In Guezzam',55:'Touggourt',56:'Djanet',57:"El M'Ghair",58:'El Meniaa'};
+function getDeliveryZone(w){
+  const n=parseInt(w);if(!n)return null;
+  for(const[z,ws]of Object.entries(yalidineZones)){if(ws.includes(n))return parseInt(z)}
+  return 3;
+}
+function getDeliveryFee(zone,type){
+  if(!zone||!type)return 0;
+  return yalidinePricing[zone]?yalidinePricing[zone][type]||0:0;
+}
+function updateDeliveryFee(){
+  const zone=getDeliveryZone(document.getElementById('checkoutWilaya').value);
+  const type=document.querySelector('input[name="deliveryType"]:checked')?.value;
+  const fee=getDeliveryFee(zone,type);
+  const el=document.getElementById('deliveryCost');const amt=document.getElementById('deliveryCostAmount');
+  if(zone&&fee>0){el.style.display='block';amt.textContent=fmt(fee)+' DZD'}else{el.style.display='none'}
+  const df=document.getElementById('deliveryFee');const dfAmt=document.getElementById('deliveryFeeAmount');
+  const gt=document.getElementById('cartGrandTotal');const gtAmt=document.getElementById('cartGrandTotalAmount');
+  if(fee>0&&cart.length){df.style.display='flex';dfAmt.textContent=fmt(fee)+' DZD';gt.style.display='flex';const sub=cart.reduce((a,i)=>a+i.price*(i.qty||1),0);gtAmt.textContent=fmt(sub+fee)+' DZD'}else{df.style.display='none';gt.style.display='none'}
+}
 
 let cart = JSON.parse(localStorage.getItem('bg_cart') || '[]');
 
@@ -1543,15 +1641,11 @@ function renderCart(){
   totalEl.textContent=`${fmt(t)} ${curr}`;
   footer.style.display='block';
   updateBadge();
-  document.getElementById('checkoutQty').value=1;
+  updateDeliveryFee();
 }
 function showCheckout(){
   document.getElementById('checkoutBtn').style.display='none';
   document.getElementById('checkoutForm').classList.add('active');
-  const qtySel=document.getElementById('checkoutQty');qtySel.innerHTML='';
-  const total=cart.reduce((a,i)=>a+i.qty,0);
-  for(let i=1;i<=total;i++){const o=document.createElement('option');o.value=i;o.textContent=i;qtySel.appendChild(o)}
-  qtySel.value=1;
 }
 function hideCheckout(){
   document.getElementById('checkoutBtn').style.display='';
@@ -1561,18 +1655,36 @@ function hideCheckout(){
 function submitOrder(){
   const name=document.getElementById('checkoutName').value.trim();
   const phone=document.getElementById('checkoutPhone').value.trim();
-  const wilaya=document.getElementById('checkoutWilaya').value;
-  const qty=document.getElementById('checkoutQty').value;
+  const wilayaVal=document.getElementById('checkoutWilaya').value;
+  const wilayaName=wilayaNames[parseInt(wilayaVal)]||wilayaVal;
   const address=document.getElementById('checkoutAddress').value.trim();
-  if(!name||!phone||!address){showToast('Veuillez remplir tous les champs');return}
+  if(!name||!phone||!wilayaVal||!address){showToast('Veuillez remplir tous les champs');return}
+  const zone=getDeliveryZone(wilayaVal);
+  const delType=document.querySelector('input[name="deliveryType"]:checked')?.value||'stopDesk';
+  const delFee=getDeliveryFee(zone,delType);
+  const delTypeLabel=delType==='home'?'Livraison à domicile':'Stop Desk (Point relais)';
   let items='';let t=0;
   cart.forEach(i=>{const st=i.price*i.qty;t+=st;items+=`${i.name} x${i.qty} = ${fmt(st)} DZD\n`});
   const total=fmt(t);
-  const msg=`Nouvelle commande BodyGlad\n\nClient: ${name}\nTél: ${phone}\nWilaya: ${wilaya}\nQuantité totale: ${qty}\nAdresse: ${address}\n\nArticles:\n${items}\nTotal: ${total} DZD\n---\nPaiement à la livraison`;
+  const msg=`Nouvelle commande BodyGlad
+
+Client: ${name}
+Tél: ${phone}
+Wilaya: ${wilayaName}
+Type: ${delTypeLabel}
+Frais livraison: ${fmt(delFee)} DZD
+Adresse: ${address}
+
+Articles:
+${items}
+Sous-total: ${total} DZD
+Total avec livraison: ${fmt(t+delFee)} DZD
+---
+Paiement à la livraison`;
   const subject=encodeURIComponent('Nouvelle commande BodyGlad');
   const body=encodeURIComponent(msg);
   window.location.href=`mailto:mr.mouraddaas@gmail.com?cc=bodyglad@gmail.com&subject=${subject}&body=${body}`;
-  sendOrderEmail({name,phone,wilaya,address,items:items+(qty?' (Qté tot.: '+qty+')':''),total});
+  sendOrderEmail({name,phone,wilaya:wilayaName,deliveryType:delTypeLabel,deliveryFee:fmt(delFee)+' DZD',address,items,total:fmt(t+delFee)+' DZD'});
   document.getElementById('formSuccess').classList.add('active');
   document.getElementById('checkoutForm').classList.remove('active');
 }
@@ -1932,7 +2044,8 @@ const i18n={
     'footer-desc':'#1 Fitness in Algiers. Join the community that makes you progress.',
     'footer-links-title':'Links','footer-contact-title':'Contact','footer-social-title':'Follow Us','footer-rights':'All rights reserved.',
     'cart-title':'Your Cart','cart-empty':'Your cart is empty','cart-total':'Total','cart-checkout':'Order Now',
-    'checkout-title':'Delivery Information','checkout-name':'Full Name','checkout-phone':'Phone','checkout-wilaya':'Wilaya','checkout-qty':'Quantity','checkout-address':'Full Address','checkout-submit':'Confirm Order','checkout-back':'Back to cart',
+    'checkout-title':'Delivery Information','checkout-name':'Full Name','checkout-phone':'Phone','checkout-wilaya':'Wilaya','checkout-delivery-type':'Delivery Type','delivery-stop-desk':'Stop Desk (Pickup point)','delivery-home':'Home Delivery','delivery-cost-label':'Delivery fee','checkout-address':'Full Address','checkout-submit':'Confirm Order','checkout-back':'Back to cart',
+    'delivery-fee':'Delivery','cart-grand-total':'Total with delivery',
     'success-title':'Order Sent!','success-text':'Thank you! Your order has been sent. We will contact you shortly.','success-close':'Close'
   },
   fr:{
@@ -1975,7 +2088,8 @@ const i18n={
     'footer-desc':'N°1 Fitness à Alger. Rejoignez la communauté qui vous fait progresser.',
     'footer-links-title':'Liens','footer-contact-title':'Contact','footer-social-title':'Suivez-nous','footer-rights':'Tous droits réservés.',
     'cart-title':'Votre Panier','cart-empty':'Votre panier est vide','cart-total':'Total','cart-checkout':'Commander',
-    'checkout-title':'Informations de livraison','checkout-name':'Nom complet','checkout-phone':'Téléphone','checkout-wilaya':'Wilaya','checkout-qty':'Quantité','checkout-address':'Adresse complète','checkout-submit':'Confirmer la commande','checkout-back':'Retour au panier',
+    'checkout-title':'Informations de livraison','checkout-name':'Nom complet','checkout-phone':'Téléphone','checkout-wilaya':'Wilaya','checkout-delivery-type':'Type de livraison','delivery-stop-desk':'Stop Desk (Point relais)','delivery-home':'Livraison à domicile','delivery-cost-label':'Frais de livraison','checkout-address':'Adresse complète','checkout-submit':'Confirmer la commande','checkout-back':'Retour au panier',
+    'delivery-fee':'Livraison','cart-grand-total':'Total avec livraison',
     'success-title':'Commande envoyée !','success-text':'Merci ! Votre commande a été envoyée. Nous vous contacterons dans les plus brefs délais.','success-close':'Fermer'
   },
   ar:{
@@ -2018,7 +2132,8 @@ const i18n={
     'footer-desc':'اللياقة البدنية رقم 1 في الجزائر العاصمة. انضم إلى المجتمع الذي يطورك.',
     'footer-links-title':'روابط','footer-contact-title':'اتصل','footer-social-title':'تابعنا','footer-rights':'جميع الحقوق محفوظة.',
     'cart-title':'سلة التسوق','cart-empty':'سلة التسوق فارغة','cart-total':'المجموع','cart-checkout':'اطلب الآن',
-    'checkout-title':'معلومات التوصيل','checkout-name':'الاسم الكامل','checkout-phone':'الهاتف','checkout-wilaya':'الولاية','checkout-qty':'الكمية','checkout-address':'العنوان الكامل','checkout-submit':'تأكيد الطلب','checkout-back':'العودة إلى السلة',
+    'checkout-title':'معلومات التوصيل','checkout-name':'الاسم الكامل','checkout-phone':'الهاتف','checkout-wilaya':'الولاية','checkout-delivery-type':'نوع التوصيل','delivery-stop-desk':'نقطة الاستلام (Stop Desk)','delivery-home':'توصيل إلى المنزل','delivery-cost-label':'رسوم التوصيل','checkout-address':'العنوان الكامل','checkout-submit':'تأكيد الطلب','checkout-back':'العودة إلى السلة',
+    'delivery-fee':'التوصيل','cart-grand-total':'المجموع مع التوصيل',
     'success-title':'تم إرسال الطلب!','success-text':'شكراً! تم إرسال طلبك. سنتصل بك قريباً.','success-close':'إغلاق'
   }
 };

@@ -1682,7 +1682,7 @@ function submitOrder(){
   document.getElementById('checkoutForm').classList.remove('active');
   cart=[];saveCart();
 }
-function closeCartAndReset(){toggleCart()}
+function closeCartAndReset(){toggleCart();showPage('home')}
 
 // ========== TOAST ==========
 function showToast(msg){

@@ -634,7 +634,6 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 /* Print Styles */
 @media print{body{background:#fff;color:#000}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1514,15 +1513,15 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')galleryNav(1);
 });
 
-// ========== EMAIL NOTIFICATION ==========
-(function(){try{emailjs.init('YOtIHgkiHPtXK2ekc')}catch(_){}})();
+// ========== EMAIL NOTIFICATION (Google Apps Script - unlimited) ==========
 function sendOrderEmail(order){
-  emailjs.send('service_2l31imd','template_8dwtt08',order).then(()=>{
-    console.log('Email sent successfully');
-  }).catch(e=>{
-    console.error('EmailJS error:',e);
-    showToast('Erreur envoi email: '+e.text);
-  });
+  try{
+    fetch('https://script.google.com/macros/s/AKfycbxdDBGD1IDqH4V98-9hFsV6ctUz-qzlPpLve-_46BjNMBZOcGzgOYlQ6s0NUW2BPwJbbQ/exec',{
+      method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(order)
+    });
+  }catch(_){}
 }
 
 // ========== DATA ==========

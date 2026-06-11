@@ -210,12 +210,12 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 
 /* Contact Section */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.contact-card{padding:24px 20px;text-align:center;transition:all .3s ease;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.contact-card{padding:20px;transition:all .3s ease;display:flex;flex-direction:row;align-items:center;gap:16px}
 .contact-card:hover{transform:translateY(-4px)}
-.contact-card .ci{font-size:1.8rem;margin-bottom:10px;display:block}
-.contact-card h4{font-family:var(--font-display);font-size:.85rem;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold)}
-.contact-card p,.contact-card a{font-size:.9rem;color:var(--gray-light);line-height:1.6}
-.contact-card a{display:block;transition:color .3s}
+.contact-card .ci{font-size:2rem;flex-shrink:0;line-height:1}
+.contact-card h4{font-family:var(--font-display);font-size:.8rem;font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold)}
+.contact-card p,.contact-card a{font-size:.85rem;color:var(--gray-light);line-height:1.5}
+.contact-card a{transition:color .3s}
 .contact-card a:hover{color:var(--gold)}
 .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .testimonial-card{padding:24px 20px;transition:all .3s ease}
@@ -669,7 +669,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <h1 class="hero-title" data-i18n="hero-title">PUSH BEYOND<br><span class="gold-text">YOUR LIMITS</span></h1>
 <p class="hero-sub" data-i18n="hero-sub">N°1 Fitness à Alger — Équipements Premium, Coachs d'Élite, Ambiance Électrique. Rejoignez l'élite.</p>
 <div class="hero-actions">
-<a href="#about" class="btn btn-gold" data-i18n="hero-cta1">Commencer</a>
+<a href="#memberships" class="btn btn-gold" data-i18n="hero-cta1">Commencer</a>
 <a href="#contact-us" class="btn btn-outline" data-i18n="hero-cta2">Nous Contacter</a>
 </div>
 </div>
@@ -1182,23 +1182,23 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <div class="contact-grid">
 <div class="card-wrap"><div class="contact-card card-inner">
 <span class="ci">📍</span>
-<h4 data-i18n="contact-address-title">Adresse</h4>
-<p>Chéraga, vers GARDEN CITY<br>Alger, Algérie</p>
+<div><h4 data-i18n="contact-address-title">Adresse</h4>
+<p>Chéraga, vers GARDEN CITY<br>Alger, Algérie</p></div>
 </div></div>
 <div class="card-wrap"><div class="contact-card card-inner">
 <span class="ci">📞</span>
-<h4 data-i18n="contact-phone-title">Téléphone</h4>
-<a href="tel:0554672222">0554 67 22 22</a>
+<div><h4 data-i18n="contact-phone-title">Téléphone</h4>
+<a href="tel:0554672222">0554 67 22 22</a></div>
 </div></div>
 <div class="card-wrap"><div class="contact-card card-inner">
 <span class="ci">✉️</span>
-<h4 data-i18n="contact-email-title">Email</h4>
-<a href="mailto:bodyglad@gmail.com">bodyglad@gmail.com</a>
+<div><h4 data-i18n="contact-email-title">Email</h4>
+<a href="mailto:bodyglad@gmail.com">bodyglad@gmail.com</a></div>
 </div></div>
 <div class="card-wrap"><div class="contact-card card-inner">
 <span class="ci">🕐</span>
-<h4 data-i18n="contact-hours-title">Horaires</h4>
-<p data-i18n="contact-hours-text">6h-00h · 7j/7</p>
+<div><h4 data-i18n="contact-hours-title">Horaires</h4>
+<p data-i18n="contact-hours-text">6h-00h · 7j/7</p></div>
 </div></div>
 </div>
 </div>

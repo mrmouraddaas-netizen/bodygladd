@@ -634,6 +634,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 /* Print Styles */
 @media print{body{background:#fff;color:#000}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1514,13 +1515,10 @@ document.addEventListener('keydown',e=>{
 });
 
 // ========== EMAIL NOTIFICATION ==========
+(function(){try{emailjs.init('YOtIHgkiHPtXK2ekc')}catch(_){}})();
 function sendOrderEmail(order){
   try{
-    fetch('https://formsubmit.co/ajax/mr.mouraddaas@gmail.com',{
-      method:'POST',mode:'no-cors',
-      headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:new URLSearchParams({_subject:'Nouvelle commande BodyGlad',_cc:'bodyglad@gmail.com',_captcha:'false',...order}).toString()
-    });
+    emailjs.send('service_2l31imd','template_pz3xlrf',order)
   }catch(_){}
 }
 

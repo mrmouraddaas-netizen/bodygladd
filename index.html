@@ -1311,7 +1311,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 
 <script>
 // ========== PAGE NAVIGATION (SPA) ==========
-const PAGE_IDS = ['schedule','about','memberships','gallery','coaches','workout','testimonials','faq','social','contact-us'];
+const PAGE_IDS = ['schedule','memberships','gallery','coaches','workout','about','testimonials','faq','social','contact-us'];
 function showPage(id){
   closeMobile();closeFab();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1319,7 +1319,7 @@ function showPage(id){
   if(id==='home'){
     PAGE_IDS.forEach(pid=>{
       const s=document.getElementById(pid);
-      if(s&&s.parentNode!==homePage)homePage.insertBefore(s,document.getElementById('sections-anchor'));
+      if(s)homePage.appendChild(s);
     });
     homePage.classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});

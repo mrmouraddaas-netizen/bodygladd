@@ -1515,13 +1515,13 @@ document.addEventListener('keydown',e=>{
 
 // ========== EMAIL NOTIFICATION ==========
 function sendOrderEmail(order){
-  const f=document.createElement('form');
-  f.method='POST';f.action='https://formsubmit.co/mr.mouraddaas@gmail.com';
-  const fields={_subject:'Nouvelle commande BodyGlad',_cc:'bodyglad@gmail.com',_captcha:'false',_next:location.href.split('#')[0],...order};
-  for(const[k,v]of Object.entries(fields)){
-    const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i)
-  }
-  document.body.appendChild(f);f.submit();
+  try{
+    fetch('https://formsubmit.co/ajax/mr.mouraddaas@gmail.com',{
+      method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams({_subject:'Nouvelle commande BodyGlad',_cc:'bodyglad@gmail.com',_captcha:'false',...order}).toString()
+    });
+  }catch(_){}
 }
 
 // ========== DATA ==========
@@ -1679,9 +1679,10 @@ function submitOrder(){
   const delTypeLabel=delType==='home'?'Livraison à domicile':'Stop Desk (Point relais)';
   let items='';let t=0;
   cart.forEach(i=>{const st=i.price*i.qty;t+=st;items+=`${i.name} x${i.qty} = ${fmt(st)} DZD\n`});
+  sendOrderEmail({name,phone,wilaya:wilayaName,deliveryType:delTypeLabel,deliveryFee:fmt(delFee)+' DZD',address,items,total:fmt(t+delFee)+' DZD'});
   document.getElementById('formSuccess').classList.add('active');
   document.getElementById('checkoutForm').classList.remove('active');
-  cart=[];saveCart();setTimeout(()=>sendOrderEmail({name,phone,wilaya:wilayaName,deliveryType:delTypeLabel,deliveryFee:fmt(delFee)+' DZD',address,items,total:fmt(t+delFee)+' DZD'}),500);
+  cart=[];saveCart();
 }
 function closeCartAndReset(){toggleCart()}
 

@@ -74,9 +74,9 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .fab{position:fixed;bottom:24px;right:24px;z-index:998;width:56px;height:56px;border-radius:50%;background:var(--gold-gradient);color:var(--black);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(212,175,55,.4);cursor:pointer;transition:all .3s;border:none}
 .fab:active{transform:scale(.92)}
 .fab.active{transform:rotate(45deg)}
-.fab-menu{position:fixed;bottom:90px;right:24px;z-index:997;display:none;flex-direction:column;gap:8px}
+.fab-menu{position:fixed;bottom:90px;right:24px;z-index:997;display:none;flex-direction:column;align-items:flex-end;gap:8px}
 .fab-menu.open{display:flex}
-.fab-btn{width:44px;height:44px;border-radius:50%;background:var(--black-3);color:var(--gold);border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.fab-btn{width:auto;min-width:100px;height:40px;border-radius:20px;background:var(--black-3);color:var(--gold);border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;padding:0 16px}
 .fab-btn:hover,.fab-btn:active{background:var(--gold);color:var(--black);transform:scale(1.1)}
 
 /* Mobile Nav - Fullscreen overlay */
@@ -1295,12 +1295,12 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <!-- Toast -->
 <div class="fab" id="fab" onclick="toggleFab()" aria-label="Quick nav">+</div>
 <div class="fab-menu" id="fabMenu">
-<button class="fab-btn" onclick="showPage('schedule')" title="Schedule">S</button>
-<button class="fab-btn" onclick="showPage('about')" title="About">A</button>
-<button class="fab-btn" onclick="showPage('memberships')" title="Memberships">M</button>
-<button class="fab-btn" onclick="showPage('gallery')" title="Gallery">G</button>
-<button class="fab-btn" onclick="showPage('coaches')" title="Coaches">C</button>
-<button class="fab-btn" onclick="showPage('contact-us')" title="Contact">@</button>
+<button class="fab-btn" onclick="showPage('schedule')">Schedule</button>
+<button class="fab-btn" onclick="showPage('about')">About</button>
+<button class="fab-btn" onclick="showPage('memberships')">Memberships</button>
+<button class="fab-btn" onclick="showPage('gallery')">Gallery</button>
+<button class="fab-btn" onclick="showPage('coaches')">Coaches</button>
+<button class="fab-btn" onclick="showPage('contact-us')">Contact</button>
 </div>
 
 <div class="toast" id="toast"></div>

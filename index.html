@@ -634,6 +634,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 /* Print Styles */
 @media print{body{background:#fff;color:#000}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1513,15 +1514,14 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')galleryNav(1);
 });
 
-// ========== EMAIL NOTIFICATION (Google Apps Script - unlimited) ==========
+// ========== EMAIL NOTIFICATION (EmailJS) ==========
+(function(){try{emailjs.init('YOtIHgkiHPtXK2ekc')}catch(e){console.error('EmailJS init:',e)}})();
 function sendOrderEmail(order){
-  try{
-    fetch('https://script.google.com/macros/s/AKfycbxdDBGD1IDqH4V98-9hFsV6ctUz-qzlPpLve-_46BjNMBZOcGzgOYlQ6s0NUW2BPwJbbQ/exec',{
-      method:'POST',
-      headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify(order)
-    }).catch(()=>{});
-  }catch(_){}
+  emailjs.send('service_2l31imd','template_8dwtt08',order).then(r=>{
+    console.log('Email sent OK:',r);
+  }).catch(e=>{
+    console.error('Email send FAIL:',e);
+  });
 }
 
 // ========== DATA ==========

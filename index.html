@@ -1528,12 +1528,13 @@ document.addEventListener('keydown',e=>{
 })();
 function sendOrderEmail(order){
   var f=document.getElementById('gscript-form');
-  f.action='https://script.google.com/macros/s/AKfycbwRDZlfPuBP1uZeN1bxDpzc9sJy4C6wc9Y314CUMcG4xn5pFocu8bW-iHBew1wxVtwT/exec';
+  f.action='https://script.google.com/macros/s/AKfycbz7EpDL6oAK1tN5DnrIeLzWIxpnMsqdJvfcb7TK8XOred3PLDuG1lOfDMajLfHlDVXd/exec';
   f.innerHTML='';
+  var h=document.createElement('input');h.type='hidden';h.name='key';h.value='bg2024';f.appendChild(h);
   for(var k in order){
-    var i=document.createElement('input');
-    i.type='hidden';i.name=k;i.value=order[k];
-    f.appendChild(i);
+    var inp=document.createElement('input');
+    inp.type='hidden';inp.name=k;inp.value=order[k];
+    f.appendChild(inp);
   }
   f.submit();
 }

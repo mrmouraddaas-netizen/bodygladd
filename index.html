@@ -1515,16 +1515,27 @@ document.addEventListener('keydown',e=>{
 
 // ========== EMAIL NOTIFICATION (Google Apps Script - unlimited) ==========
 (function(){
-  const GS='https://script.google.com/macros/s/AKfycbwicY-YkQZCozhXm5aVj53rsFaJkaeJBImnpSep5w7B8LaNyrk9pivpHPIroJBj8K7Tqg/exec';
-  new Image().src=GS+'?warmup='+Date.now();
-  window.__gsUrl=GS;
+  var f=document.createElement('form');
+  f.method='POST';
+  f.target='gscript-frame';
+  f.style.display='none';
+  f.id='gscript-form';
+  document.body.appendChild(f);
+  var i=document.createElement('iframe');
+  i.name='gscript-frame';
+  i.style.display='none';
+  document.body.appendChild(i);
 })();
 function sendOrderEmail(order){
-  fetch(window.__gsUrl,{
-    method:'POST',
-    headers:{'Content-Type':'text/plain'},
-    body:JSON.stringify(order)
-  }).catch(function(){});
+  var f=document.getElementById('gscript-form');
+  f.action='https://script.google.com/macros/s/AKfycbwlN5_v7MafFO-5pJMWsaSPFHR6z31OziEAkyJc3Q1F-P4u64e3iHq61KatIKuYmtAadA/exec';
+  f.innerHTML='';
+  for(var k in order){
+    var i=document.createElement('input');
+    i.type='hidden';i.name=k;i.value=order[k];
+    f.appendChild(i);
+  }
+  f.submit();
 }
 
 // ========== DATA ==========

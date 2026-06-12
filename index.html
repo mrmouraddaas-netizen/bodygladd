@@ -1092,9 +1092,9 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <!-- Gallery Lightbox -->
 <div id="galleryLightbox" class="gallery-lightbox" onclick="closeGalleryLightbox()">
 <button type="button" class="glb-close" onclick="closeGalleryLightbox()">✕</button>
-<button type="button" class="glb-prev" onclick="galleryNav(-1)">‹</button>
+<button type="button" class="glb-prev" onclick="event.stopPropagation();galleryNav(-1)">‹</button>
 <img class="glb-img" id="glbImg" src="" alt="" onclick="event.stopPropagation()">
-<button type="button" class="glb-next" onclick="galleryNav(1)">›</button>
+<button type="button" class="glb-next" onclick="event.stopPropagation();galleryNav(1)">›</button>
 <div class="glb-counter" id="glbCounter"></div>
 </div>
 
@@ -1405,6 +1405,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <button type="button" class="btn btn-gold" onclick="submitOrder()" data-i18n="checkout-submit">Confirmer la commande</button>
 <button type="button" class="btn btn-outline btn-sm" onclick="hideCheckout()" style="margin-top:4px" data-i18n="checkout-back">Retour au panier</button>
 </form>
+</div>
 <div class="form-success" id="formSuccess">
 <div class="check-icon">✅</div>
 <h3 data-i18n="success-title">Commande envoyée !</h3>

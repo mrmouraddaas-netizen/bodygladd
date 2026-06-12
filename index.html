@@ -1697,7 +1697,7 @@ function submitOrder(){
   sendOrderEmail({name,phone,wilaya:wilayaName,deliveryType:delTypeLabel,deliveryFee:fmt(delFee)+' DZD',address,items,total:fmt(t+delFee)+' DZD'});
   document.getElementById('formSuccess').classList.add('active');
   document.getElementById('checkoutForm').classList.remove('active');
-  cart=[];saveCart();
+  cart=[];saveCart();renderCart();
 }
 function closeCartAndReset(){toggleCart();showPage('home')}
 

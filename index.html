@@ -1528,7 +1528,7 @@ document.addEventListener('keydown',e=>{
 })();
 function sendOrderEmail(order){
   var f=document.getElementById('gscript-form');
-  f.action='https://script.google.com/macros/s/AKfycbz7EpDL6oAK1tN5DnrIeLzWIxpnMsqdJvfcb7TK8XOred3PLDuG1lOfDMajLfHlDVXd/exec';
+  f.action='https://script.google.com/macros/s/AKfycbyiXRCyY5U-rwq4lILdD4oMULid1uB5UjHTTm5Lz9WZ4OaoUS0rFAo7wSi-yzpjOXR3/exec';
   f.innerHTML='';
   var h=document.createElement('input');h.type='hidden';h.name='key';h.value='bg2024';f.appendChild(h);
   for(var k in order){
